@@ -41,7 +41,7 @@
 
 .btn-outline {
     border: 1px solid var(--primary-black);
-    padding: 1rem 3rem;
+    padding: 0.8rem 2rem;
     text-transform: uppercase;
     font-family: 'Lato', sans-serif;
     font-weight: 700;
@@ -49,6 +49,12 @@
     font-size: 0.9rem;
     color: var(--primary-black);
     transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    min-width: 250px;
+    justify-content: center;
 }
 
 .btn-outline:hover {
@@ -61,4 +67,15 @@
         flex-direction: column;
         align-items: center;
     }
+}
+
+.delivery-logo {
+    height: 30px;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.btn-outline:hover .delivery-logo {
+    transform: scale(1.1);
 }

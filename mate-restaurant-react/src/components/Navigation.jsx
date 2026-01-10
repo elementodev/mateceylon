@@ -19,6 +19,12 @@ function Navigation() {
             <span></span>
           </div>
 
+          <div className="logo">
+            <Link to="/">
+              <img src="/logo.png" alt="Mate Response" />
+            </Link>
+          </div>
+
           <Link to="/contact" className="nav-cta">
             MAKE A RESERVATION
           </Link>

@@ -213,11 +213,7 @@ nav {
 
 /* If sticky needed after scroll, add a class with JS, or keep absolute for strict Cafe Sydney look on Hero */
 
-.logo img {
-  height: 60px;
-  filter: brightness(0) invert(1);
-  /* White logo for overlay */
-}
+/* .logo img style removed to prevent white filter */
 
 .nav-toggle {
   display: flex;

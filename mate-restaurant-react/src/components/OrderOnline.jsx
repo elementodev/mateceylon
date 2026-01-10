@@ -10,10 +10,12 @@ const OrderOnline = () => {
                     <p>Order now through our delivery partners</p>
                     <div className="order-buttons">
                         <a href="#" className="btn-outline">
-                            Uber Eats
+                            <img src="/ubereats.png" alt="Uber Eats" className="delivery-logo" />
+                            <span>Uber Eats</span>
                         </a>
                         <a href="#" className="btn-outline">
-                            PickMe Food
+                            <img src="/pickmefood.png" alt="PickMe Food" className="delivery-logo" />
+                            <span>PickMe Food</span>
                         </a>
                     </div>
                 </AnimatedSection>
