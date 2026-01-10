@@ -1,7 +1,8 @@
 /* Admin Global Variables */
 :root {
   --admin-bg: #1a1a1a;
-  --admin-sidebar: #000000;
+  --admin-sidebar: #111111;
+  /* Soft dark sidebar */
   --admin-text: #f4f4f4;
   --admin-accent: #cd9f2b;
   /* Gold */

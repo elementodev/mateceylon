@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useFirestore } from '../hooks/useFirestore';
+import { useStorage } from '../hooks/useStorage';
 import { Link } from 'react-router-dom';
 import AdminLayout from './components/AdminLayout';
 import './Admin.css';
 
 function ManageMenu() {
     const { data: menuItems, loading, addDocument, deleteDocument, updateDocument } = useFirestore('menu_items');
+    const { uploadFile, deleteFile } = useStorage();
     const [formData, setFormData] = useState({
         name: '',
         description: '',
@@ -16,6 +18,8 @@ function ManageMenu() {
     });
     const [isEditing, setIsEditing] = useState(false);
     const [editId, setEditId] = useState(null);
+    const [file, setFile] = useState(null);
+    const [uploading, setUploading] = useState(false);
 
     const categories = [
         { id: 'appetizers', name: 'Appetizers' },
@@ -27,13 +31,24 @@ function ManageMenu() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setUploading(true);
         try {
+            let imageUrl = formData.imageUrl;
+
+            if (file) {
+                // If editing and there's an old image, delete it (optional, but good practice to clean up)
+                // Note: Logic to delete old image could be added here if we tracked the old URL better
+                imageUrl = await uploadFile(file, 'menu_items');
+            }
+
+            const dataToSave = { ...formData, imageUrl };
+
             if (isEditing) {
-                await updateDocument(editId, formData);
+                await updateDocument(editId, dataToSave);
                 setIsEditing(false);
                 setEditId(null);
             } else {
-                await addDocument(formData);
+                await addDocument(dataToSave);
             }
             setFormData({
                 name: '',
@@ -41,13 +56,17 @@ function ManageMenu() {
                 price: '',
                 category: 'mains',
                 isVegetarian: false,
-                isSpecial: false
+                isSpecial: false,
+                imageUrl: ''
             });
+            setFile(null);
+            document.getElementById('menuFileInput').value = '';
             alert('Menu item saved successfully!');
         } catch (error) {
             console.error("Error saving menu item:", error);
             alert('Failed to save menu item.');
         }
+        setUploading(false);
     };
 
     const handleDelete = async (id) => {
@@ -67,10 +86,14 @@ function ManageMenu() {
             price: item.price,
             category: item.category,
             isVegetarian: item.isVegetarian || false,
-            isSpecial: item.isSpecial || false
+            isSpecial: item.isSpecial || false,
+            imageUrl: item.imageUrl || ''
         });
         setIsEditing(true);
         setEditId(item.id);
+        setFile(null); // Reset file input
+        const fileInput = document.getElementById('menuFileInput');
+        if (fileInput) fileInput.value = '';
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
@@ -129,6 +152,23 @@ function ManageMenu() {
                         </select>
                     </div>
 
+                    <div className="form-group" style={{ gridColumn: '1 / -1' }}>
+                        <label>Image (Optional)</label>
+                        <input
+                            id="menuFileInput"
+                            type="file"
+                            accept="image/*"
+                            className="form-control"
+                            onChange={(e) => setFile(e.target.files[0])}
+                            style={{ padding: '0.8rem' }}
+                        />
+                        {formData.imageUrl && !file && (
+                            <div style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: '#888' }}>
+                                Current image: <a href={formData.imageUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#cd9f2b' }}>View</a>
+                            </div>
+                        )}
+                    </div>
+
                     <div className="form-group" style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
                         <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', color: '#fff' }}>
                             <input
@@ -151,8 +191,13 @@ function ManageMenu() {
                     </div>
 
                     <div style={{ gridColumn: '1 / -1', marginTop: '1rem' }}>
-                        <button type="submit" className="btn-primary" style={{ marginRight: '1rem' }}>
-                            {isEditing ? 'Update Item' : 'Add Item'}
+                        <button
+                            type="submit"
+                            className="btn-primary"
+                            style={{ marginRight: '1rem', opacity: uploading ? 0.7 : 1, cursor: uploading ? 'not-allowed' : 'pointer' }}
+                            disabled={uploading}
+                        >
+                            {uploading ? 'Processsing...' : (isEditing ? 'Update Item' : 'Add Item')}
                         </button>
                         {isEditing && (
                             <button
@@ -165,8 +210,11 @@ function ManageMenu() {
                                         price: '',
                                         category: 'mains',
                                         isVegetarian: false,
-                                        isSpecial: false
+                                        isSpecial: false,
+                                        imageUrl: ''
                                     });
+                                    setFile(null);
+                                    if (document.getElementById('menuFileInput')) document.getElementById('menuFileInput').value = '';
                                 }}
                                 style={{
                                     padding: '0.8rem 2rem',
@@ -202,11 +250,20 @@ function ManageMenu() {
                         {menuItems.map(item => (
                             <tr key={item.id}>
                                 <td>
-                                    <div style={{ fontWeight: 'bold', fontSize: '1.1rem', color: '#fff' }}>{item.name}</div>
-                                    <div style={{ fontSize: '0.9rem', color: '#888' }}>{item.description}</div>
-                                    <div style={{ marginTop: '0.5rem' }}>
-                                        {item.isVegetarian && <span style={{ backgroundColor: '#065f46', color: '#d1fae5', fontSize: '0.75rem', padding: '4px 8px', borderRadius: '4px', marginRight: '5px' }}>Veg</span>}
-                                        {item.isSpecial && <span style={{ backgroundColor: '#92400e', color: '#fef3c7', fontSize: '0.75rem', padding: '4px 8px', borderRadius: '4px' }}>Special</span>}
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                        <img
+                                            src={item.imageUrl || "https://images.unsplash.com/photo-1544025162-d76690b60944?w=600&q=80"}
+                                            alt={item.name}
+                                            style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px' }}
+                                        />
+                                        <div>
+                                            <div style={{ fontWeight: 'bold', fontSize: '1.1rem', color: '#fff' }}>{item.name}</div>
+                                            <div style={{ fontSize: '0.9rem', color: '#888' }}>{item.description}</div>
+                                            <div style={{ marginTop: '0.5rem' }}>
+                                                {item.isVegetarian && <span style={{ backgroundColor: '#065f46', color: '#d1fae5', fontSize: '0.75rem', padding: '4px 8px', borderRadius: '4px', marginRight: '5px' }}>Veg</span>}
+                                                {item.isSpecial && <span style={{ backgroundColor: '#92400e', color: '#fef3c7', fontSize: '0.75rem', padding: '4px 8px', borderRadius: '4px' }}>Special</span>}
+                                            </div>
+                                        </div>
                                     </div>
                                 </td>
                                 <td style={{ textTransform: 'capitalize' }}>{item.category}</td>

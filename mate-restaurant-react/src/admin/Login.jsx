@@ -56,7 +56,9 @@ function Login() {
                                 padding: '0.75rem',
                                 border: '1px solid #ddd',
                                 borderRadius: '4px',
-                                fontSize: '1rem'
+                                fontSize: '1rem',
+                                color: '#333',
+                                backgroundColor: '#fff'
                             }}
                         />
                     </div>
@@ -72,7 +74,9 @@ function Login() {
                                 padding: '0.75rem',
                                 border: '1px solid #ddd',
                                 borderRadius: '4px',
-                                fontSize: '1rem'
+                                fontSize: '1rem',
+                                color: '#333',
+                                backgroundColor: '#fff'
                             }}
                         />
                     </div>

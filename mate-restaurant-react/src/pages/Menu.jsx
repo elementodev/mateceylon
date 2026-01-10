@@ -52,6 +52,12 @@ function Menu() {
                     <div className="menu-items-grid">
                         {getFilteredItems().map((item, index) => (
                             <div key={index} className="menu-item-card">
+                                <img
+                                    src={item.imageUrl || "https://images.unsplash.com/photo-1544025162-d76690b60944?w=600&q=80"}
+                                    alt={item.name}
+                                    className="menu-item-image"
+                                    loading="lazy"
+                                />
                                 <div className="menu-item-header">
                                     <h3>{item.name}</h3>
                                     <span className="price">{item.price}</span>

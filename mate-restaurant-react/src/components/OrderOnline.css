@@ -1,11 +1,13 @@
 .order-online {
-    padding: 6rem 0;
+    padding: 8rem 0;
     text-align: center;
-    background-color: var(--light-gray);
-    color: var(--primary-black);
+    background-color: transparent;
     position: relative;
+    /* Optional: Add a subtle texture or pattern if available, or rely on global dark bg */
 }
 
+/* Removed the light overlay, adding a subtle dark gradient instead if needed, 
+   but since the global bg is dark, we can just be transparent or slightly lighter/darker */
 .order-online::before {
     content: '';
     position: absolute;
@@ -13,8 +15,9 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(244, 244, 244, 0.85);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(20, 20, 20, 0.8), rgba(0, 0, 0, 0));
     z-index: 1;
+    pointer-events: none;
 }
 
 .order-online>* {
@@ -23,59 +26,112 @@
 }
 
 .order-online h2 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    font-size: 3.5rem;
+    /* Increased size for impact */
+    margin-bottom: 1.5rem;
+    color: var(--primary-gold);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .order-online p {
-    font-size: 1.2rem;
-    margin-bottom: 3rem;
-    color: var(--text-gray);
+    font-size: 1.3rem;
+    margin-bottom: 4rem;
+    color: var(--light-gray);
+    font-weight: 300;
 }
 
 .order-buttons {
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    gap: 3rem;
 }
 
 .btn-outline {
-    border: 1px solid var(--primary-black);
-    padding: 0.8rem 2rem;
+    border: 2px solid var(--primary-gold);
+    /* Thicker gold border */
+    padding: 1rem 2.5rem;
     text-transform: uppercase;
     font-family: 'Lato', sans-serif;
     font-weight: 700;
     letter-spacing: 2px;
-    font-size: 0.9rem;
-    color: var(--primary-black);
-    transition: all 0.3s;
+    font-size: 1rem;
+    color: var(--primary-gold);
+    background: transparent;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Bouncy transition */
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     text-decoration: none;
-    min-width: 250px;
+    min-width: 280px;
     justify-content: center;
+    border-radius: 4px;
+    /* Slight rounding */
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-outline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background-color: var(--primary-gold);
+    transition: all 0.4s ease;
+    z-index: -1;
 }
 
 .btn-outline:hover {
-    background-color: var(--primary-black);
-    color: var(--white);
+    color: var(--primary-black);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn-outline:hover::before {
+    width: 100%;
 }
 
 @media (max-width: 768px) {
     .order-buttons {
         flex-direction: column;
         align-items: center;
+        gap: 1.5rem;
+    }
+
+    .btn-outline {
+        width: 100%;
+        max-width: 300px;
     }
 }
 
 .delivery-logo {
-    height: 30px;
+    height: 35px;
     width: auto;
     object-fit: contain;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+    /* Try to make logos compatible with dark theme. 
+       If they are transparent PNGs, we don't need to invert them unless they are black.
+       Let's try grayscale + brightness to make them silver/whiteish if colorful, or just standard.
+       Actually, let's remove the invert filter - simple is better. 
+       If they are invisible (black), we can add a white drop-shadow or background.
+    */
+    filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.5));
 }
 
+.btn-outline span {
+    color: var(--primary-gold);
+    transition: color 0.3s ease;
+}
+
+/* On hover, if the background becomes gold, we might want logos to be black */
 .btn-outline:hover .delivery-logo {
     transform: scale(1.1);
+    filter: none;
+    /* Show original colors on hover */
+}
+
+.btn-outline:hover span {
+    color: var(--primary-black);
 }

@@ -1,6 +1,7 @@
 .about-page {
-    background-color: var(--white);
+    background-color: transparent !important;
     padding-bottom: 4rem;
+    color: var(--white);
 }
 
 .about-story {
@@ -14,19 +15,23 @@
     font-size: 2.5rem;
     margin-bottom: 2rem;
     color: var(--primary-gold);
+    font-family: 'Playfair Display', serif;
 }
 
 .about-story p {
     font-size: 1.1rem;
-    color: var(--text-gray);
+    color: var(--light-gray);
     margin-bottom: 1.5rem;
     font-weight: 300;
+    line-height: 1.8;
 }
 
-/* Mission Grid - Flat Design */
+/* Mission Grid */
 .about-mission {
-    background-color: var(--primary-black);
-    color: var(--white);
+    background-color: rgba(255, 255, 255, 0.02);
+    /* Very subtle dark overlay */
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     padding: 6rem 2rem;
 }
 
@@ -42,16 +47,21 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 3rem;
     transition: all 0.3s ease;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
 }
 
 .mission-card:hover {
     border-color: var(--primary-gold);
+    background: rgba(205, 159, 43, 0.05);
+    transform: translateY(-5px);
 }
 
 .mission-card h3 {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
     color: var(--primary-gold);
+    font-family: 'Playfair Display', serif;
 }
 
 .mission-card ul {
@@ -63,7 +73,8 @@
     margin-bottom: 0.8rem;
     padding-left: 1.5rem;
     position: relative;
-    opacity: 0.85;
+    opacity: 0.9;
+    color: var(--light-gray);
 }
 
 .mission-card li::before {
@@ -71,6 +82,12 @@
     color: var(--primary-gold);
     position: absolute;
     left: 0;
+    font-size: 1.2rem;
+}
+
+.mission-card p {
+    color: var(--light-gray);
+    line-height: 1.6;
 }
 
 /* Team Section */
@@ -84,6 +101,8 @@
 .about-team h2 {
     font-size: 3rem;
     margin-bottom: 4rem;
+    color: var(--white);
+    font-family: 'Playfair Display', serif;
 }
 
 .chefs-grid {
@@ -94,6 +113,16 @@
 
 .chef-card {
     text-align: left;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.chef-card:hover {
+    border-color: var(--primary-gold);
+    background: rgba(255, 255, 255, 0.04);
 }
 
 .chef-image {
@@ -103,8 +132,8 @@
     background-position: center;
     margin-bottom: 1.5rem;
     filter: grayscale(100%);
-    /* Premium B&W look */
     transition: filter 0.4s ease;
+    border-radius: 8px;
 }
 
 .chef-card:hover .chef-image {
@@ -114,6 +143,8 @@
 .chef-card h3 {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
+    color: var(--white);
+    font-family: 'Playfair Display', serif;
 }
 
 .chef-role {
@@ -126,26 +157,31 @@
 }
 
 .chef-bio {
-    color: var(--text-gray);
+    color: var(--light-gray);
     font-size: 0.95rem;
+    line-height: 1.6;
 }
 
 /* Timeline */
 .about-timeline {
-    background-color: #f9f9f9;
+    background-color: transparent;
+    /* Removed light bg */
     padding: 6rem 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .about-timeline h2 {
     text-align: center;
     font-size: 3rem;
     margin-bottom: 4rem;
+    color: var(--white);
+    font-family: 'Playfair Display', serif;
 }
 
 .timeline {
     max-width: 800px;
     margin: 0 auto;
-    border-left: 1px solid var(--primary-gold);
+    border-left: 1px solid rgba(205, 159, 43, 0.3);
     padding-left: 3rem;
 }
 
@@ -157,12 +193,15 @@
 .timeline-item::before {
     content: "";
     position: absolute;
-    left: -3.4rem;
-    top: 5px;
-    width: 12px;
-    height: 12px;
+    left: -3.35rem;
+    /* Adjusted for alignment */
+    top: 8px;
+    width: 10px;
+    height: 10px;
     background-color: var(--primary-gold);
     border-radius: 50%;
+    box-shadow: 0 0 10px rgba(205, 159, 43, 0.5);
+    /* Glow */
 }
 
 .timeline-year {
@@ -175,4 +214,10 @@
 .timeline-content h3 {
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
+    color: var(--white);
+}
+
+.timeline-content p {
+    color: var(--light-gray);
+    line-height: 1.6;
 }

@@ -1,5 +1,5 @@
 .menu-page {
-    background-color: var(--white);
+    background-color: transparent !important;
     min-height: 100vh;
 }
 
@@ -22,7 +22,7 @@
     border: none;
     font-family: 'Playfair Display', serif;
     font-size: 1.1rem;
-    color: var(--text-gray);
+    color: var(--light-gray);
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -35,6 +35,19 @@
 .category-btn:hover {
     color: var(--primary-gold);
     border-color: var(--primary-gold);
+    outline: none !important;
+    box-shadow: none !important;
+    text-shadow: 0 0 15px rgba(205, 159, 43, 0.8);
+    background: rgba(205, 159, 43, 0.05);
+    /* Subtle background tint */
+}
+
+.category-btn:focus,
+.category-btn:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: var(--primary-gold);
+    /* Keep the gold border on focus but no generic ring */
 }
 
 .menu-items-grid {
@@ -49,6 +62,17 @@
     /* Force flat */
     background: transparent;
     /* Clean flat design - no borders or shadows on the card itself */
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-item-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .menu-item-header {
@@ -57,13 +81,13 @@
     align-items: center;
     margin-bottom: 0.8rem;
     padding-bottom: 0.8rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     /* Subtle divider */
 }
 
 .menu-item-header h3 {
     font-size: 1.3rem;
-    color: var(--primary-black);
+    color: var(--primary-gold);
     letter-spacing: 1px;
 }
 
@@ -75,7 +99,7 @@
 }
 
 .menu-item-card .description {
-    color: var(--text-gray);
+    color: #e0e0e0;
     font-size: 1rem;
     line-height: 1.6;
     margin-bottom: 1rem;
@@ -102,15 +126,15 @@
 
 .badge.special {
     background-color: var(--primary-gold);
-    color: var(--white);
+    color: var(--primary-black);
 }
 
 .menu-note {
     text-align: center;
     margin-top: 6rem;
-    color: #888;
+    color: #aaa;
     font-size: 0.9rem;
     font-style: italic;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding-top: 2rem;
 }

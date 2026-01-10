@@ -1,5 +1,5 @@
 .gallery-page {
-    background-color: var(--white);
+    background-color: transparent !important;
     padding-bottom: 4rem;
 }
 
@@ -22,7 +22,7 @@
     border: none;
     font-family: 'Playfair Display', serif;
     font-size: 1.1rem;
-    color: var(--text-gray);
+    color: var(--light-gray);
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 2px;

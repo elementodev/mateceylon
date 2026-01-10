@@ -2,7 +2,8 @@
 
 :root {
   --primary-gold: #cd9f2b;
-  --primary-black: #040707;
+  --primary-black: #141414;
+  /* Soft rich dark, not pure black */
   --white: #ffffff;
   --light-gray: #f4f4f4;
   --dark-gray: #1a1a1a;
@@ -22,9 +23,11 @@ html {
 
 body {
   font-family: 'Lato', sans-serif;
-  color: var(--primary-black);
+  color: var(--light-gray);
+  /* Inverted text for dark theme */
   line-height: 1.6;
-  background-color: var(--white);
+  background-color: var(--primary-black);
+  /* Soft dark background */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -39,7 +42,8 @@ h6 {
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: var(--primary-black);
+  color: var(--primary-gold);
+  /* Gold headers for premium look */
 }
 
 a {
@@ -99,7 +103,8 @@ ul {
   flex-direction: column;
   justify-content: center;
   padding: 5rem;
-  background-color: var(--white);
+  background-color: var(--primary-black);
+  /* Dark background */
   /* background-image: url('/backgroud.png'); REMOVED: 2.6MB file causing scroll lag */
   background-size: cover;
   background-position: center;
@@ -114,7 +119,8 @@ ul {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(0, 0, 0, 0.7);
+  /* Dark overlay */
   z-index: 1;
 }
 
@@ -351,6 +357,51 @@ nav {
   transform: translateX(30px);
 }
 
-.animated-section.slide-right.is-visible {
-  transform: translateX(0);
+
+/* --- Page Specific Wrappers (Dark Theme Fix) --- */
+.menu-page,
+.gallery-page,
+.about-page,
+.services-page,
+.contact-page {
+  background-color: transparent !important;
+  color: var(--light-gray);
+}
+
+/* --- Global Text Visibility Fixes --- */
+p,
+li,
+span,
+label,
+input,
+textarea {
+  color: var(--light-gray);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--primary-gold);
+}
+
+.description,
+.menu-item-details p,
+.footer-text,
+.footer-links a,
+.working-hours,
+.copyright {
+  color: #e0e0e0 !important;
+}
+
+/* .category-btn styles moved to Menu.css */
+
+.menu-page h2,
+.gallery-page h2,
+.about-page h2,
+.services-page h2,
+.contact-page h2 {
+  color: var(--primary-gold);
 }

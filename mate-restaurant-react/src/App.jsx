@@ -42,7 +42,7 @@ function App() {
       <Router>
         <Layout>
           <Suspense fallback={
-            <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#040707', color: '#cd9f2b' }}>
+            <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#141414', color: '#cd9f2b' }}>
               Loading...
             </div>
           }>
